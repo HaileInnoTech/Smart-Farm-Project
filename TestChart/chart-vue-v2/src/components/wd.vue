@@ -112,7 +112,6 @@ export default {
             borderColor: "rgb(75, 192, 192)",
             backgroundColor: "rgb(75, 192, 192, 0.5)",
             tension: 0.2,
-            
           },
           {
             label: "Temperature",
@@ -145,7 +144,7 @@ export default {
             y: {
               beginAtZero: true,
             },
-          }
+          },
         },
       };
       // Create a new chart

@@ -1,7 +1,3 @@
-<script setup>
-import wd from "./components/wd.vue";
-</script>
-
 <template>
   <!-- <div>
   <HelloWorld/>
@@ -14,15 +10,14 @@ import wd from "./components/wd.vue";
   <!-- <div style="width: 550px">
     <test />
   </div> -->
-  <div>
-    <wd />
-  </div>
+  <testSocketio />
 </template>
 <script>
+import testSocketio from "./components/testSocketio.vue";
+
 export default {
-  name: "App",
   components: {
-    wd,
+    testSocketio,
   },
 };
 </script>
