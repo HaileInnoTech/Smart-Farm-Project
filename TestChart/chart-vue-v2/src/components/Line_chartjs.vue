@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Chart from "chart.js/auto";
+import{ Chart} from "chart.js/auto";
 
 export default {
   props: {
@@ -23,7 +23,6 @@ export default {
     },
   },
   mounted() {
-    const dateLabels = this.timeData.map((timestamp) => new Date(timestamp));
     const data = {
       labels: this.timeData,
       datasets: [

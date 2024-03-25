@@ -68,10 +68,6 @@ void loop()
       currentTime += timeClient.getMinutes();
       currentTime += ":";
       currentTime += timeClient.getSeconds();
-      currentTime += " ";
-      currentTime += timeClient.get();
-
-
 
     if (arduinoSerial.available()) {
 

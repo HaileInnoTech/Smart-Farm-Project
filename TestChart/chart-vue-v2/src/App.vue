@@ -1,5 +1,4 @@
 <script setup>
-import Line_chartjs from "./components/Line_chartjs.vue";
 import wd from "./components/wd.vue";
 </script>
 
@@ -23,7 +22,6 @@ import wd from "./components/wd.vue";
 export default {
   name: "App",
   components: {
-    Line_chartjs,
     wd,
   },
 };

@@ -2,46 +2,13 @@
   <div style="width: 700px">
     <canvas id="myChart"></canvas>
   </div>
-  <button @click="fetchData">Fetch Data</button>
-
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>Humidity Data</th>
-        <th>Temperature Data</th>
-        <th>Time Data</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(value, key) in humidityData" :key="key">
-        <td>{{ key }}</td>
-        <td>{{ value }}</td>
-        <td>{{ temperatureData[key] }}</td>
-        <td>{{ timeData[key] }}</td>
-      </tr>
-    </tbody>
-  </table>
 </template>
 
 <script>
-import { initializeApp } from "firebase/app";
+import firebaseApp from "../firebase";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { Chart } from "chart.js/auto";
 
-import Chart from "chart.js/auto";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAOmVngCIDg_WpMykay6NeKttHJPDu0pHc",
-  authDomain: "smart-farming-system-f9435.firebaseapp.com",
-  databaseURL:
-    "https://smart-farming-system-f9435-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "smart-farming-system-f9435",
-  storageBucket: "smart-farming-system-f9435.appspot.com",
-  messagingSenderId: "733693187694",
-  appId: "1:733693187694:web:704e1bb3467cdbcae3f87f",
-  measurementId: "G-BBK4EYQ8BQ",
-};
-const firebaseApp = initializeApp(firebaseConfig);
 const database = getDatabase(firebaseApp);
 const humidityRef = ref(database, "/Temp-Humid/humidity");
 const temperatureRef = ref(database, "/Temp-Humid/temperature");
@@ -96,9 +63,7 @@ export default {
           if (this.humidityData.length > 10) {
             this.humidityData = this.humidityData.reverse().slice(0, 10);
             this.humidityData = this.humidityData.reverse();
-            console.log(this.humidityData);
           }
-          this.setupChart();
         } catch (error) {
           console.error("Error in humidity callback:", error);
         }
@@ -111,7 +76,6 @@ export default {
           if (this.temperatureData.length > 10) {
             this.temperatureData = this.temperatureData.reverse().slice(0, 10);
             this.temperatureData = this.temperatureData.reverse();
-            console.log(this.temperatureData);
           }
         } catch (error) {
           console.error("Error in temperature callback:", error);
@@ -125,8 +89,8 @@ export default {
           if (this.timeData.length > 10) {
             this.timeData = this.timeData.reverse().slice(0, 10);
             this.timeData = this.timeData.reverse();
-            console.log(this.timeData);
           }
+          this.setupChart();
         } catch (error) {
           console.error("Error in time callback:", error);
         }
@@ -146,14 +110,17 @@ export default {
             data: this.humidityData,
             fill: false,
             borderColor: "rgb(75, 192, 192)",
-            tension: 0.1,
+            backgroundColor: "rgb(75, 192, 192, 0.5)",
+            tension: 0.2,
+            
           },
           {
             label: "Temperature",
             data: this.temperatureData,
             fill: false,
             borderColor: "rgb(255, 99, 132)",
-            tension: 0.1,
+            backgroundColor: "rgb(255, 99, 132, 0.5)",
+            tension: 0.2,
           },
         ],
       };
@@ -161,11 +128,24 @@ export default {
         type: "line",
         data: data,
         options: {
+          interaction: {
+            intersect: false,
+          },
+          plugins: {
+            legend: {
+              position: "top",
+            },
+            title: {
+              display: true,
+              text: "Humidity and Temperature Chart",
+            },
+          },
+
           scales: {
             y: {
               beginAtZero: true,
             },
-          },
+          }
         },
       };
       // Create a new chart
