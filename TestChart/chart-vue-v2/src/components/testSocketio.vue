@@ -51,10 +51,11 @@ export default {
   },
   created() {
     // Connect to Socket.IO server
-    const socket = io("http://localhost:3000");
+    const socket = io("https://testbe-mongodb.onrender.com");
     socket.on("connect", () => {
       console.log("Connected to server");
     });
+    
 
     // Event listener for receiving data from server
     socket.on("updateData", (data) => {
