@@ -55,7 +55,6 @@ export default {
     socket.on("connect", () => {
       console.log("Connected to server");
     });
-    
 
     // Event listener for receiving data from server
     socket.on("updateData", (data) => {
@@ -106,7 +105,7 @@ export default {
     },
     chartOptions() {
       return {
-        responsive: true,
+        maintainAspectRatio: false,
         interaction: {
           intersect: false,
         },
@@ -120,7 +119,6 @@ export default {
           },
         },
 
-        maintainAspectRatio: false,
         scales: {
           y: {
             beginAtZero: true,
@@ -131,7 +129,6 @@ export default {
     chartStyles() {
       return {
         height: "600px",
-        width: "800px",
       };
     },
   },
